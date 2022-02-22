@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Weather Journal</title>
+<link href="https://fonts.googleapis.com/css?family=Oswald:400,600,700|Ranga:400,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="style.css">
+</head>
+ <body>
+  <header>
+    <nav>
+      <div id="logo">Weather Journal</div>
+      <div class="country"><img id="flag" alt="USA" src="https://www.countryflags.io/us/flat/32.png"><span>USA</span></div>
+    </nav>
+  </header>
+    <div class ="form">
+          <input type="text"  id="zip" placeholder="Enter zip code here.">
+          <input type="text" maxlength="100" id="feelings" placeholder="How are you feeling?">
+          <button id="generate" type = "submit"> Generate </button>
+          <div id = "error"></div>
+    </div>
+    <div id ="entryHolder">
+      <div id = "heading">Most recent entry</div> 
+      <div class="result">
+        <div class = "tempDate">
+          <div id = "temp"></div>
+          <div id = "date"></div> 
+        </div> 
+        <div id = "city"></div> 
+      </div>
+      <span id = "seperator"></span>
+      <div id = "content"></div>
+    </div>
+    <div id="footer"> 
+      <a href='https://www.freepik.com/photos/background'>Background photo created by jannoon028</a>
+    </div>
+    <script src="app.js" type="text/javascript"></script>
+</body>
+</html>
