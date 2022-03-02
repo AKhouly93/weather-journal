@@ -4,8 +4,8 @@ const feelingsBox = document.getElementById('feelings');
 const errorMessage = document.getElementById('error');
 
 //helper function that generates the full URL.
-function generateRequesrUrl(zipCode){
-  const apiKey = ' '; //add the API key you get from https://openweathermap.org/ here.
+function generateRequestURL(zipCode){
+  const apiKey = ''; //add the API key you get from https://openweathermap.org/ here.
   return `https://api.openweathermap.org/data/2.5/weather?zip=${zipCode}&appid=${apiKey}&units=metric`;
 }
 
@@ -16,38 +16,37 @@ function showErrorMessage(message){
 }
 
 const getWeatherData = async (requestURL)=>{
-      const response = await fetch (requestURL);
-      if (response.status !== 200){
-        throw Error('Sorry! City not found.')
-      }else{
-        const jsonResponse = await response.json();
-        return jsonResponse;
-      }
+  const response = await fetch (requestURL);
+  if (response.status !== 200){
+    throw Error('Sorry! City not found.')
+  }else{
+    const jsonResponse = await response.json();
+    return jsonResponse;
+  }
 };
 
 const postWeatherData = async ( url = '', data = {})=>{
-  const response = await fetch(url, {
-    method: 'POST', 
-    credentials: 'same-origin',
-    headers: {
-        'Content-Type': 'application/json',
-    },
-   // Body data type must match "Content-Type" header        
-    body: JSON.stringify(data), 
-  });
-  try {
-    const jsonResponse = await response.json();
-    return jsonResponse;
-  }catch(error) {
-    showErrorMessage('Oops! Something went wrong.');
+  try{
+    await fetch(url, {
+      method: 'POST', 
+      credentials: 'same-origin',
+      headers: {
+          'Content-Type': 'application/json',
+      },
+     // Body data type must match "Content-Type" header        
+      body: JSON.stringify(data), 
+    });
+  }catch(error){
+    //TODO: Handle error
   }
+
 }
 
 //event listeners
 generateButton.addEventListener('click', ()=>{
   if (inputBox.value.trim() !=''){
     const zipCode = inputBox.value.trim();  //removing any extra white spaces that user may add accidentally.
-    getWeatherData(generateRequesrUrl(zipCode))
+    getWeatherData(generateRequestURL(zipCode))
     .then((data)=>{
       //from the API documentation we know that the date is stored in dt, temprature is stored in main.temp.
       //converting the Unix timestamp to a readable date string.
@@ -69,6 +68,8 @@ generateButton.addEventListener('click', ()=>{
   showErrorMessage('Please enter a valid US zip code.');
   }
 });
+
+
 // the updateUI async function works as a function that retrieves the app's data from server and updates the ui as well.
 const updateUI = async ()=>{
   const response = await fetch('/getWeatherData');
